@@ -1,0 +1,15 @@
+<launch>
+<!-- Launch file for FastLIO -->
+
+<!-- SLAM, currently includes rviz -->
+	<include file="mapping_ouster32.launch"> </include>
+
+<!-- Rviz -->
+	<node launch-prefix="nice" type="rviz" name="rviz" pkg="rviz" args="-d /root/mountvol/fastlio/mapping_ouster32.rviz" />
+
+<!-- Rosbag -->
+	<param name="/use_sim_time" value="false"/>
+	<arg name="node_start_delay" default="3.0" />  
+	<node pkg="rosbag" type="play" name="player" output="screen" launch-prefix="bash -c 'sleep $(arg node_start_delay); $0 $@' " args="--quiet /root/mountvol/df0303.bag"/>
+
+</launch>
